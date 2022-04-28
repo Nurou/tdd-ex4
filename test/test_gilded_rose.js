@@ -10,4 +10,13 @@ describe("Gilded Rose", function () {
       expect(items[0].quality).to.equal(originalQuality - 1);
     });
   });
+
+  describe("when items are named Aged brie", () => {
+    it("should increment quality by one", () => {
+      const originalQuality = 10;
+      const gildedRose = new Shop([new Item("Aged Brie", 1, originalQuality)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).to.equal(originalQuality + 1);
+    });
+  });
 });
