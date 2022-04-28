@@ -11,12 +11,21 @@ describe("Gilded Rose", function () {
     });
   });
 
-  describe("when items are named Aged brie", () => {
-    it("should increment quality by one", () => {
+  describe("when the item quality is less than 50", () => {
+    it("should increment quality by one when items are named Aged brie", () => {
       const originalQuality = 10;
       const gildedRose = new Shop([new Item("Aged Brie", 1, originalQuality)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).to.equal(originalQuality + 1);
+    });
+
+    describe("when the item is named Backstage passes to a TAFKAL80ETC concert", () => {
+      it("should increment quality by three when sellIn is less than 6 ", () => {
+        const originalQuality = 10;
+        const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 1, originalQuality)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(originalQuality + 3);
+      });
     });
   });
 });
