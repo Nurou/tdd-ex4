@@ -28,4 +28,13 @@ describe("Gilded Rose", function () {
       });
     });
   });
+
+  describe("when items have a sellIn of less than 0", () => {
+    it("should decrement quality by two when the item sellIn is less than 0 and the item name is not one of the non-degradable items", () => {
+      const originalQuality = 10;
+      const gildedRose = new Shop([new Item("foo", -1, originalQuality)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).to.equal(originalQuality - 2);
+    });
+  });
 });
