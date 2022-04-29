@@ -2,6 +2,12 @@ var { expect } = require("chai");
 var { Shop, Item } = require("../src/gilded_rose.js");
 
 describe("Gilded Rose", function () {
+  it("should not do anything when there are no items ", () => {
+    const gildedRose = new Shop();
+    const items = gildedRose.updateQuality();
+    expect(items.length).to.equal(0);
+  });
+
   describe("when items are not named Aged brie or Backstage passes to a TAFKAL80ETC concert", () => {
     it("should degrade quality of item(s) by one", function () {
       const originalQuality = 10;
