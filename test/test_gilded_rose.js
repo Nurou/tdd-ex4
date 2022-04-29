@@ -15,6 +15,14 @@ describe("Gilded Rose", function () {
       const items = gildedRose.updateQuality();
       expect(items[0].quality).to.equal(originalQuality - 1);
     });
+
+    it("should not update if quality is  0 ", () => {
+      const originalQuality = 0;
+
+      const gildedRose = new Shop([new Item("foo", 1, originalQuality)]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].quality).to.equal(originalQuality);
+    });
   });
 
   describe("when the item quality is less than 50", () => {
