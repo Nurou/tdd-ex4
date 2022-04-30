@@ -105,6 +105,13 @@ describe("Gilded Rose", function () {
     expect(items[0].sellIn).to.equal(originalSellIn);
   });
 
+  it("should decrement the sellIn of items by one for items not named 'Sulfuras, Hand of Ragnaros'", () => {
+    const originalSellIn = 1;
+    const gildedRose = new Shop([new Item("foo", originalSellIn, 1)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).to.equal(originalSellIn - 1);
+  });
+
   describe("when items have a sellIn of less than 0", () => {
     it("should decrement quality by two when the item sellIn is less than 0 and the item name is not one of the non-degradable items", () => {
       const originalQuality = 10;
