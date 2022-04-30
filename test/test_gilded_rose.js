@@ -126,6 +126,12 @@ describe("Gilded Rose", function () {
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(originalQuality);
       });
+      it("should not decrement quality when quality is greater than 0 and item name is 'Sulfuras, Hand of Ragnaros'", () => {
+        const originalQuality = 1;
+        const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", -1, originalQuality)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(originalQuality);
+      });
       it("should set the quality to 0 when item is Backstage passes to a TAFKAL80ETC concert", () => {
         const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", -1, 10)]);
         const items = gildedRose.updateQuality();
