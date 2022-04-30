@@ -133,15 +133,24 @@ describe("Gilded Rose", function () {
         expect(items[0].quality).to.equal(originalQuality);
       });
       it("should set the quality to 0 when item is Backstage passes to a TAFKAL80ETC concert", () => {
-        const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", -1, 10)]);
+        const originalQuality = 10;
+        const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", -1, originalQuality)]);
         const items = gildedRose.updateQuality();
         expect(items[0].quality).to.equal(0);
       });
 
       it('should increment the quality by 2 when item is "Aged Brie" and quality is less than 50', () => {
+        const originalQuality = 10;
         const gildedRose = new Shop([new Item("Aged Brie", -1, 10)]);
         const items = gildedRose.updateQuality();
-        expect(items[0].quality).to.equal(12);
+        expect(items[0].quality).to.equal(originalQuality + 2);
+      });
+
+      it('should increment the quality by 1 when item is "Aged Brie" and quality is 50', () => {
+        const originalQuality = 50;
+        const gildedRose = new Shop([new Item("Aged Brie", -1, originalQuality)]);
+        const items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(originalQuality);
       });
     });
   });
