@@ -16,30 +16,36 @@ class Shop {
   updateQuality() {
     const isABackstagePass = (item) => this.BACKSTAGE_PASSES.includes(item.name);
     const decreasesInQuality = (item) => item.quality > 0 && item.name != "Sulfuras, Hand of Ragnaros";
-    const canIncrementQuality = (item) => item.quality < 50;
+    const increasesInQuality = (item) => item.quality < 50;
     const isLegendaryItem = (item) => item.name == "Sulfuras, Hand of Ragnaros";
 
     return this.items.map((item) => {
-      if (!isABackstagePass(item)) {
-        if (decreasesInQuality(item)) {
-          item.quality--;
-        }
-      } else {
-        if (canIncrementQuality(item)) {
-          item.quality++;
-          if (item.name == "Backstage passes to a TAFKAL80ETC concert") {
+      switch (item.name) {
+        case "Aged Brie":
+          if (increasesInQuality(item)) {
+            item.quality++;
+          }
+          break;
+        case "Backstage passes to a TAFKAL80ETC concert":
+          if (increasesInQuality(item)) {
+            item.quality++;
             if (item.sellIn < 11) {
-              if (canIncrementQuality(item)) {
+              if (increasesInQuality(item)) {
                 item.quality++;
               }
             }
             if (item.sellIn < 6) {
-              if (canIncrementQuality(item)) {
+              if (increasesInQuality(item)) {
                 item.quality++;
               }
             }
           }
-        }
+          break;
+        default:
+          if (decreasesInQuality(item)) {
+            item.quality--;
+          }
+          break;
       }
 
       if (!isLegendaryItem(item)) {
@@ -51,7 +57,7 @@ class Shop {
       if (itemIsPastSaleDate) {
         switch (item.name) {
           case "Aged Brie":
-            if (canIncrementQuality(item)) {
+            if (increasesInQuality(item)) {
               item.quality++;
             }
             break;
