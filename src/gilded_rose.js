@@ -22,39 +22,40 @@ class Shop {
       switch (item.name) {
         case "Aged Brie":
           if (increasesInQuality(item)) {
-            item.quality++;
-          }
-          if (itemIsPastSaleDate && increasesInQuality(item)) {
-            item.quality++;
+            if (itemIsPastSaleDate) {
+              item.quality += 2;
+            } else {
+              item.quality += 1;
+            }
           }
           break;
         case "Backstage passes to a TAFKAL80ETC concert":
           if (increasesInQuality(item)) {
-            item.quality++;
-            if (item.sellIn < 11) {
+            if (itemIsPastSaleDate) {
+              item.quality = 0;
+            } else {
+              item.quality++;
               if (increasesInQuality(item)) {
-                item.quality++;
+                if (item.sellIn < 11) {
+                  item.quality++;
+                }
+                if (item.sellIn < 6 && increasesInQuality(item)) {
+                  item.quality++;
+                }
               }
             }
-            if (item.sellIn < 6) {
-              if (increasesInQuality(item)) {
-                item.quality++;
-              }
-            }
-          }
-          if (itemIsPastSaleDate) {
-            item.quality = 0;
           }
           break;
         default:
           if (decreasesInQuality(item)) {
-            item.quality--;
+            if (itemIsPastSaleDate) {
+              item.quality -= 2;
+            } else {
+              item.quality -= 1;
+            }
           }
           if (!isLegendaryItem(item)) {
             item.sellIn--;
-          }
-          if (itemIsPastSaleDate && decreasesInQuality(item)) {
-            item.quality--;
           }
           break;
       }
