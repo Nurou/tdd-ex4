@@ -30,18 +30,18 @@ class Shop {
           }
           break;
         case "Backstage passes to a TAFKAL80ETC concert":
+          if (itemIsPastSaleDate) {
+            item.quality = 0;
+            break;
+          }
           if (increasesInQuality(item)) {
-            if (itemIsPastSaleDate) {
-              item.quality = 0;
-            } else {
-              item.quality++;
-              if (increasesInQuality(item)) {
-                if (item.sellIn < 11) {
-                  item.quality++;
-                }
-                if (item.sellIn < 6 && increasesInQuality(item)) {
-                  item.quality++;
-                }
+            item.quality++;
+            if (increasesInQuality(item)) {
+              if (item.sellIn < 11) {
+                item.quality++;
+              }
+              if (item.sellIn < 6 && increasesInQuality(item)) {
+                item.quality++;
               }
             }
           }
