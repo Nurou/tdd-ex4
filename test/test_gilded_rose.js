@@ -1,7 +1,7 @@
 var { expect } = require("chai");
 var { Shop, Item } = require("../src/gilded_rose.js");
 
-describe("Gilded Rose", function () {
+describe("Gilded Rose:update quality", function () {
   it("should not do anything when there are no items ", () => {
     const gildedRose = new Shop();
     const items = gildedRose.updateQuality();
@@ -63,7 +63,7 @@ describe("Gilded Rose", function () {
   describe("when the item is Aged Brie", () => {
     it("should increment quality by one when quality is less than 50", () => {
       const originalQuality = 10;
-      const gildedRose = new Shop([new Item("Aged Brie", 1, originalQuality)]);
+      const gildedRose = new Shop([new Item("Aged Brie", 0, originalQuality)]);
       const items = gildedRose.updateQuality();
       expect(items[0].quality).to.equal(originalQuality + 1);
     });
@@ -85,7 +85,7 @@ describe("Gilded Rose", function () {
 
   describe("when the item is named Backstage passes to a TAFKAL80ETC concert", () => {
     it("should increment quality by three when quality is less than 50 and sell in is 5 or less", () => {
-      const sellIn = 1;
+      const sellIn = 5;
       const originalQuality = 10;
       const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, originalQuality)]);
       const items = gildedRose.updateQuality();
@@ -93,7 +93,7 @@ describe("Gilded Rose", function () {
     });
 
     it("should increment quality by two when quality is less than 50 and sell in is between 10 and 6", () => {
-      const sellIn = 6;
+      const sellIn = 10;
       const originalQuality = 48;
       const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, originalQuality)]);
       const items = gildedRose.updateQuality();
