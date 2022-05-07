@@ -21,12 +21,12 @@ class Shop {
 
       switch (item.name) {
         case "Aged Brie":
-          if (increasesInQuality(item)) {
-            if (itemIsPastSaleDate) {
-              item.quality += 2;
-            } else {
-              item.quality += 1;
-            }
+          if (!increasesInQuality(item)) break;
+
+          if (itemIsPastSaleDate) {
+            item.quality += 2;
+          } else {
+            item.quality += 1;
           }
           break;
         case "Backstage passes to a TAFKAL80ETC concert":
@@ -34,17 +34,18 @@ class Shop {
             item.quality = 0;
             break;
           }
-          if (increasesInQuality(item)) {
-            item.quality++;
-            if (increasesInQuality(item)) {
-              if (item.sellIn < 11) {
-                item.quality++;
-              }
-              if (item.sellIn < 6 && increasesInQuality(item)) {
-                item.quality++;
-              }
-            }
+
+          if (!increasesInQuality(item)) break;
+
+          if (item.sellIn <= 5) {
+            item.quality += 3;
+            break;
           }
+          if (item.sellIn <= 10) {
+            item.quality += 2;
+            break;
+          }
+          item.quality += 1;
           break;
         default:
           if (decreasesInQuality(item)) {
